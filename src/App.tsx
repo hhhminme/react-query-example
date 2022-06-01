@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
+import { getItemAll } from './api';
+import Form from './components/Form';
+import List from './components/List';
+import { queryKeys } from './query/queryKey';
 
-function App() {
+const App = () => {
+  const { data, status } = useQuery(queryKeys.items, getItemAll);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>메뉴 등록하기</h1>
+      <Form />
+      <div>나의 메뉴판 정보</div>
+      {status === 'loading' ? (
+        <span>로딩 중 입니다...</span>
+      ) : (
+        <List listData={data} />
+      )}
     </div>
   );
-}
+};
 
 export default App;
