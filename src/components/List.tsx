@@ -85,7 +85,11 @@ const List: FC<ListProps> = ({ listData }) => {
 
           <button onClick={() => handleDelete(id)}>삭제하기</button>
           <button onClick={() => handleEdit(id, name, price)}>
-            {editable ? <span>제출하기</span> : <span>수정하기</span>}
+            {editable && clickedId === id ? (
+              <span>제출하기</span>
+            ) : (
+              <span>수정하기</span>
+            )}
           </button>
         </ul>
       ))}
